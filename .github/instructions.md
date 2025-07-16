@@ -1,1 +1,0 @@
-Este proyecto es una aplicación de consola en Java para la gestión de una biblioteca. Utiliza Maven y está organizado en paquetes: model, service, ui, exception. Aplica conceptos de POO, estructuras de control y manejo de excepciones. El código debe estar comentado y seguir buenas prácticas.
