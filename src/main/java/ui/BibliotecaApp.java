@@ -4,6 +4,7 @@ import model.Libro;
 import service.BibliotecaService;
 import exception.LibroNoEncontradoException;
 
+import java.io.IOException;
 import java.util.List;
 //Un escáner de texto simple que puede analizar tipos primitivos y cadenas mediante expresiones regulares.
 import java.util.Scanner;
@@ -37,12 +38,18 @@ public class BibliotecaApp {
                     eliminarLibro();
                     break;
                 case 6:
+                    exportarLibrosAExcel();
+                    break;
+                case 7:
+                    cargarDatosEjemplo();
+                    break;
+                case 8:
                     System.out.println("Saliendo del sistema. ¡Hasta luego!");
                     break;
                 default:
                     System.out.println("Opción inválida. Intente nuevamente.");
             }
-        } while (opcion != 6);
+        } while (opcion != 8);
     }
 
     private static void mostrarMenu() {
@@ -52,7 +59,9 @@ public class BibliotecaApp {
         System.out.println("3. Buscar libro por titulo");
         System.out.println("4. Buscar libro por autor");
         System.out.println("5. Eliminar libro");
-        System.out.println("6. Salir");
+        System.out.println("6. Exportar libros a Excel");
+        System.out.println("7. Cargar datos de ejemplo");
+        System.out.println("8. Salir");
         System.out.print("Seleccione una opcion: ");
     }
 
@@ -128,5 +137,32 @@ public class BibliotecaApp {
         } catch (LibroNoEncontradoException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    /**
+     * Exporta todos los libros de la biblioteca a un archivo Excel.
+     */
+    private static void exportarLibrosAExcel() {
+        List<Libro> libros = biblioteca.listarLibros();
+        if (libros.isEmpty()) {
+            System.out.println("No hay libros registrados para exportar.");
+            return;
+        }
+        
+        try {
+            String nombreArchivo = biblioteca.exportarLibrosAExcel();
+            System.out.println("¡Exportación exitosa!");
+            System.out.println("Archivo creado: " + nombreArchivo);
+            System.out.println("Total de libros exportados: " + libros.size());
+        } catch (IOException e) {
+            System.out.println("Error al exportar a Excel: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Carga datos de ejemplo en la biblioteca.
+     */
+    private static void cargarDatosEjemplo() {
+        DatosEjemplo.cargarDatosEjemplo(biblioteca);
     }
 }

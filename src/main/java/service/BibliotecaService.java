@@ -3,6 +3,7 @@ package service;
 import model.Libro;
 import exception.LibroNoEncontradoException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,5 +58,27 @@ public class BibliotecaService {
         if (!eliminado) {
             throw new LibroNoEncontradoException("No se encontró un libro con el ISBN proporcionado.");
         }
+    }
+    
+    /**
+     * Exporta todos los libros a un archivo Excel.
+     * 
+     * @return Nombre del archivo Excel creado
+     * @throws IOException Si ocurre un error durante la exportación
+     */
+    public String exportarLibrosAExcel() throws IOException {
+        ExcelExportService excelService = new ExcelExportService();
+        return excelService.exportarLibrosConNombreAutomatico(libros);
+    }
+    
+    /**
+     * Exporta los libros a un archivo Excel con nombre personalizado.
+     * 
+     * @param nombreArchivo Nombre del archivo Excel a crear
+     * @throws IOException Si ocurre un error durante la exportación
+     */
+    public void exportarLibrosAExcel(String nombreArchivo) throws IOException {
+        ExcelExportService excelService = new ExcelExportService();
+        excelService.exportarLibrosAExcel(libros, nombreArchivo);
     }
 }
