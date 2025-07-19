@@ -5,6 +5,7 @@ import service.BibliotecaService;
 import exception.LibroNoEncontradoException;
 
 import java.util.List;
+//Un escáner de texto simple que puede analizar tipos primitivos y cadenas mediante expresiones regulares.
 import java.util.Scanner;
 
 /**
